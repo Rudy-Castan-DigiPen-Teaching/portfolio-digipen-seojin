@@ -14,9 +14,9 @@
   --fw-reg: 300;
   --fw-bold: 900;
 
-  --clr-light: #ffffff;
-  --clr-dark: #303030;
-  --clr-accent: #16e0bd;
+  --clr-light: #1a1e1b;
+  --clr-dark: #f4f7f4;
+  --clr-accent: #65c07d;
 
   --fs-h1: 3rem;
   --fs-h2: 2.25rem;
@@ -74,18 +74,21 @@ strong {
   display: inline-block;
   padding: 0.5em 2.5em;
   background: var(--clr-accent);
-  color: var(--clr-dark);
+  color: var(--clr-light);
   text-decoration: none;
   cursor: pointer;
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: var(--fw-bold);
-  transition: transform 200ms ease-in-out;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
 }
 
 .btn:hover {
-  transform: scale(1.1);
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 6px 12px rgba(101, 192, 125, 0.4);
 }
 
 /* Typography */
@@ -129,9 +132,11 @@ h3 {
 .section__subtitle--intro,
 .section__subtitle--about {
   background: var(--clr-accent);
+  color: var(--clr-light);
   padding: 0.25em 1em;
   font-family: var(--ff-secondary);
   margin-bottom: 1em;
+  border-radius: 4px;
 }
 
 .section__subtitle--projects {
@@ -274,6 +279,8 @@ header {
 
 .intro__img {
   box-shadow: var(--bs);
+  border-radius: 12px;
+  border: 2px solid var(--clr-accent);
 }
 
 .section__subtitle--intro {
@@ -367,6 +374,8 @@ header {
 
 .about-me__img {
   box-shadow: var(--bs);
+  border-radius: 12px;
+  border: 2px solid var(--clr-accent);
 }
 
 @media (min-width: 600px) {
@@ -461,6 +470,13 @@ header {
   border-left: 2px solid var(--clr-accent);
   position: relative;
   max-width: 1000px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  border-radius: 0 8px 8px 0;
+}
+
+.resume-section .resume-item:hover {
+  transform: translateX(10px);
+  background-color: rgba(101, 192, 125, 0.05);
 }
 
 .resume-section .resume-item b {
@@ -484,7 +500,7 @@ header {
 /* Footer */
 
 .footer {
-  background: #111;
+  background: #080c09;
   color: var(--clr-accent);
   text-align: center;
   padding: 2.5em 0;
