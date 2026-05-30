@@ -71,17 +71,43 @@
 
     <div class="portfolio-item-individual">
         <h2>Project Overview</h2>
-        <p>Provide a brief description of the project, its purpose, and what you aimed to achieve.</p>
+        <p>
+            This procedural geometric modeling demo shows a browser-ready port of a desktop OpenGL/SDL application,
+            built with Emscripten and configured for a portfolio-friendly web entry point.
+        </p>
 
         <h2>Tasks Completed</h2>
         <ul>
-            <li>Describe the tasks you completed for this project.</li>
-            <li>Be specific about your contributions and the technologies used.</li>
+            <li>Reviewed and adjusted the web build configuration for Emscripten, including CMake presets and target settings.</li>
+            <li>Fixed Emscripten-specific compilation issues in Mesh.cpp and D02ProceduralMeshes.cpp.</li>
+            <li>Ensured web debug, web developer-release, and web release targets can configure and build successfully.</li>
+            <li>Set up a web shell template using index_shell.html for browser runtime behavior.</li>
+            <li>Added a portfolio-friendly HTML redirect page so the procedural mesh demo can be opened directly with graphics_fun.html?start=meshes.</li>
+        </ul>
+
+        <h2>Technologies Used</h2>
+        <ul>
+            <li>C++</li>
+            <li>CMake</li>
+            <li>Emscripten</li>
+            <li>WebGL / SDL2</li>
+            <li>GLM, GSL, Dear ImGui</li>
+            <li>Reflection</li>
         </ul>
 
         <h2>Reflection</h2>
-        <p>Reflect on the project, discussing any challenges faced, solutions implemented, and what you learned from the
-            experience.</p>
+        <p>
+            The main challenge was porting a desktop OpenGL/SDL application into a browser environment with Emscripten.
+            Toolchain and path issues, along with strict compiler warnings under <code>-Werror</code>, required precise source fixes.
+        </p>
+        <p>
+            I cleaned up web-specific CMake/Emscripten options, resolved compiler warnings, and made the code compatible with browser build settings.
+            The result is a direct portfolio entry point for the procedural mesh demo rather than only a generic build artifact.
+        </p>
+        <p>
+            I learned that Emscripten builds require careful handling of build options and runtime HTML integration,
+            and that browser builds can expose code issues desktop builds may hide.
+        </p>
     </div>
 
     <div class="portfolio-item-individual">
