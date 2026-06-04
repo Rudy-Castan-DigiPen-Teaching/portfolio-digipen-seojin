@@ -10,7 +10,7 @@
 
     <!-- Help auto scale for desktop & mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STUDENT TODO Website</title>
+    <title>Seojin Yun Portfolio - Value Noise</title>
 
     <!-- Normalize the difference across browsers  https://necolas.github.io/normalize.css/ -->
     <link rel="stylesheet" href="../external/normalize.css">
@@ -69,17 +69,19 @@
 
     <div class="portfolio-item-individual">
         <h2>Project Overview</h2>
-        <p>Provide a brief description of the project, its purpose, and what you aimed to achieve.</p>
+        <p>This project focused on implementing a robust procedural texture generation system using the Value Noise algorithm within a custom C++ and OpenGL graphics framework. The primary goal was to construct a flexible noise generator capable of 1D, 2D, and 3D space evaluation using permutation hashing, and to visualize the seamlessly tiled results in real-time through custom shaders.</p>
 
         <h2>Tasks Completed</h2>
         <ul>
-            <li>Describe the tasks you completed for this project.</li>
-            <li>Be specific about your contributions and the technologies used.</li>
+            <li><strong>Project Integration:</strong> Seamlessly merged the Value Noise starter code into the existing OpenGL framework, updating the CMakeLists.txt and registering the new interactive demo in the DemosFactory module.</li>
+            <li><strong>Value Noise Algorithm:</strong> Developed the core noise generator incorporating random permutation hash tables, coordinate splitting (separating fractional interpolants from base grids), and various fractional fading methods (Linear, Cosine, Smoothstep, Quintic) for smoothing out the noise boundaries.</li>
+            <li><strong>Dimensional Interpolation:</strong> Programmed precise interpolators utilizing 1D Linear, 2D Bilinear, and 3D Trilinear mixing methods to evaluate glm::vec4 textures accurately across varying spatial dimensions.</li>
+            <li><strong>Texture Uploading:</strong> Implemented an UploadAsRGBA method inside the Texture class using GL::TexSubImage2D to efficiently stream procedurally generated pixel data straight into the GPU's memory.</li>
+            <li><strong>Shader Pipeline:</strong> Created custom simple.vert and simple.frag shaders to handle clip-space transformations and map the noise output onto an interactive full-screen quad while respecting dynamic scaling and tiling parameters.</li>
         </ul>
 
         <h2>Reflection</h2>
-        <p>Reflect on the project, discussing any challenges faced, solutions implemented, and what you learned from the
-            experience.</p>
+        <p>One notable challenge was adapting the generic noise templating mechanics alongside the concrete runtime demands of the demo. To streamline performance and reduce codebase complexity, the generic ValueNoise interface was successfully refactored into a concrete class optimized directly for the glm::vec4 color datatype. Additionally, ensuring seamless, continuous bounds across multi-dimensional grids required precise logic when slicing float coordinates into their base integer and fractional offsets. Overall, this project significantly deepened my understanding of procedural noise behavior, the importance of permutation hashing for maintaining pseudo-random consistency, and the intricacies of bilinear and trilinear interpolation for fluid graphical visualizations.</p>
     </div>
 
     <div class="portfolio-item-individual">
@@ -89,15 +91,15 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <a href="mailto:my.email@digipen.edu" class="footer__link">my.email@digipen.edu</a>
+        <a href="mailto:syun.dev@gmail.com" class="footer__link">syun.dev@gmail.com</a>
         <ul class="social-list">
             <li class="social-list__item">
-                <a class="social-list__link" href="https://linkedin.com/in/mylinkedinid">
+                <a class="social-list__link" href="https://linkedin.com/in/seojin-yun/">
                     <i class="fab fa-linkedin"></i>
                 </a>
             </li>
             <li class="social-list__item">
-                <a class="social-list__link" href="https://github.com/mygithubid">
+                <a class="social-list__link" href="https://github.com/digipen-seojin">
                     <i class="fab fa-github"></i>
                 </a>
             </li>
