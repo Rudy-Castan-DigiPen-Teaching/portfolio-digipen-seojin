@@ -10,7 +10,7 @@
 
     <!-- Help auto scale for desktop & mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STUDENT TODO Website</title>
+    <title>Shadow Mapping</title>
 
     <!-- Normalize the difference across browsers  https://necolas.github.io/normalize.css/ -->
     <link rel="stylesheet" href="../external/normalize.css">
@@ -69,17 +69,38 @@
 
     <div class="portfolio-item-individual">
         <h2>Project Overview</h2>
-        <p>Provide a brief description of the project, its purpose, and what you aimed to achieve.</p>
+        <p>In this project, I implemented a real-time <strong>Shadow Mapping</strong> system integrated into an interactive 3D graphics demo. The primary purpose was to model a perspective light source as a camera, capture the scene's depth from the light's point of view, and use that depth map to render realistic, dynamic shadows on the objects. The project aimed to achieve a seamless multi-pass rendering pipeline compatible with both <strong>Windows (x64)</strong> and <strong>Web (WebGL)</strong> platforms, featuring adjustable parameters for fine-tuning shadow accuracy, frustum visualizers, and atmospheric effects like exponential fog.</p>
 
         <h2>Tasks Completed</h2>
         <ul>
-            <li>Describe the tasks you completed for this project.</li>
-            <li>Be specific about your contributions and the technologies used.</li>
+            <li><strong>Build &amp; Demo Setup</strong>: Integrated the starter files into the workspace structure, modified the C++ build configurations in CMake, and registered the new interactive demo under the global demo manager.</li>
+            <li><strong>OpenGL Texture Enhancements</strong>: Upgraded the <code>Texture</code> wrapper class to support depth textures (supporting various bit depths like 16, 24, 32, and 32-bit float). Configured OpenGL parameters (<code>GL_TEXTURE_COMPARE_MODE</code> as <code>GL_COMPARE_REF_TO_TEXTURE</code> and <code>GL_TEXTURE_COMPARE_FUNC</code> as <code>GL_LEQUAL</code>) to enable hardware-accelerated depth comparison.</li>
+            <li><strong>FrameBuffer Management</strong>: Created the <code>FrameBuffer</code> class to handle frame buffer object (FBO) allocation, texture attachments (color and depth), and validation of complete framebuffer status.</li>
+            <li><strong>Camera Matrix Calculations</strong>: Programmed the Camera class coordinate conversions to generate a custom <code>ViewMatrix</code> (world space to camera space) and a <code>ToWorldMatrix</code> (camera space to world space) analytically using vector cross/dot products, bypassing expensive generic matrix inversion calls.</li>
+            <li><strong>Trefoil Knot Mesh Generation</strong>: Programmed a custom parametric mesh generator for 3D trefoil knots, utilizing camera-like frame sweeps along the curve to generate vertices, normals, and texture coordinates.</li>
+            <li><strong>Two-Pass Shadow Mapping Logic</strong>:
+                <ul>
+                    <li><em>Pass 1 (Depth recording)</em>: Guided the light camera perspective into the depth buffer, utilizing polygon offsets (<code>glPolygonOffset</code>) and custom face-culling switches to minimize visual artifacts.</li>
+                    <li><em>Pass 2 (Color rendering)</em>: Rendered the scene from the spectator camera, mapping coordinates to biased shadow space and reading occlusion states using <code>sampler2DShadow</code> and <code>textureProj</code>.</li>
+                    <li><em>Debugging Visuals</em>: Implemented visual toggles to render the light’s camera frustum in world space (transforming the NDC cube by the inverse projection and camera world matrix) and to overlay the depth map using a screen quad.</li>
+                </ul>
+            </li>
+            <li><strong>Shader Programming</strong>: Completed GLSL code for <code>shadows.vert</code> and <code>shadows.frag</code> to handle lighting, hardware shadow filtering, gamma correction (1/2.2), custom checks to disable shadow casting behind the light source, and radial exponential fog.</li>
         </ul>
 
         <h2>Reflection</h2>
-        <p>Reflect on the project, discussing any challenges faced, solutions implemented, and what you learned from the
-            experience.</p>
+        <p><strong>Challenges Faced</strong>:</p>
+        <ul>
+            <li><em>Shadow Acne &amp; Precision Artifacts</em>: Initial shadow rendering suffered from severe shadow acne (concentric banding on surfaces) due to finite depth buffer precision. I solved this by configuring <code>glPolygonOffset</code> during the depth map recording pass and enabling front-face culling so that back faces were drawn, leaving the front faces artifact-free.</li>
+            <li><em>Behind-the-Light Shadow Bleeding</em>: Objects situated behind the perspective light source were receiving incorrect shadow mapping projections due to the mirroring nature of perspective division. I implemented a conditional check in the fragment shader to examine the shadow-space homogeneous coordinates (<code>z &lt; 0.0</code>) and override the shadow coefficient to 1.0 (fully lit) for fragments behind the light plane.</li>
+            <li><em>Toolchain Compilation Discrepancies</em>: While compiling the project for WebGL using the Emscripten compiler (Clang), the compiler suffered segmentation faults when processing implicit <code>std::array</code> class template argument deductions (CTAD) for initialization lists, and threw strict errors on implicit sign conversions. I addressed these by explicitly typing template parameters (e.g., <code>std::array&lt;DemoMetaData, 4&gt;</code>) and applying explicit <code>static_cast</code> for enum-to-signed comparisons.</li>
+        </ul>
+        <p><strong>Lessons Learned</strong>:</p>
+        <ul>
+            <li>Gained a solid, intuitive understanding of projection space mapping, particularly how to construct matrices to convert clip space coordinates back to world space for frustum visualization.</li>
+            <li>Mastered multi-pass rendering pipelines using FrameBuffer Objects (FBOs) and depth-sensitive sampler types in GLSL (<code>sampler2DShadow</code> with <code>textureProj</code>).</li>
+            <li>Learned the importance of strict type safety and warning compliance when building cross-platform projects targeting multiple compilers (MSVC vs. Clang/GCC).</li>
+        </ul>
     </div>
 
     <div class="portfolio-item-individual">
