@@ -9,7 +9,7 @@
     <link rel="icon" type="image/svg+xml" href="../img/face.jpg">
     <!-- Help auto scale for desktop & mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STUDENT TODO Website</title>
+    <title>Seojin Yun Portfolio - Gradient Noise</title>
 
     <!-- Normalize the difference across browsers  https://necolas.github.io/normalize.css/ -->
     <link rel="stylesheet" href="../external/normalize.css">
@@ -68,17 +68,19 @@
 
     <div class="portfolio-item-individual">
         <h2>Project Overview</h2>
-        <p>Provide a brief description of the project, its purpose, and what you aimed to achieve.</p>
+        <p>This project focused on implementing a robust, procedurally generated 3D Gradient Noise (Perlin Noise) algorithm on the GPU using GLSL shaders within a custom C++ and OpenGL graphics framework. The goal was to extend the graphics framework to support high-precision texture formats (such as 32-bit floating-point red and RGBA channels) and utilize 2D texture lookups to dynamically evaluate and render seamless tiling noise patterns in real-time, visualizing them on both 2D quads and Z-displaced 3D terrain meshes.</p>
 
         <h2>Tasks Completed</h2>
         <ul>
-            <li>Describe the tasks you completed for this project.</li>
-            <li>Be specific about your contributions and the technologies used.</li>
+            <li><strong>Framework Extension:</strong> Extended the `Texture` and `FrameBuffer` classes to support config-driven color formats including `RGBA8`, `RGBA32F`, and `R32F` (red-channel float). Implemented `LoadAsFormat()` to allocate GPU storage using `GL::TexStorage2D` for modern OpenGL/WebGL targets with a robust fallback to `GL::TexImage2D` for older contexts.</li>
+            <li><strong>GPU-Based Noise Generation:</strong> Programmed the core Perlin Noise algorithm in the `gen_gradient_noise.frag` fragment shader. It uses a hardcoded permutation table and a list of 12 gradient vectors to evaluate 3D Perlin noise via 2D lookup structures, interpolating with a Quintic fade curve.</li>
+            <li><strong>Seamless Tiling & Modulo Arithmetic:</strong> Implemented precise modulo 64 arithmetic to wrap integer lattice coordinates. This ensures that all coordinate lookups wrap perfectly at boundary edges, producing 100% seamless, tiling noise patterns across all scales.</li>
+            <li><strong>Shader Visualization Pipeline:</strong> Created a suite of vertex and fragment shaders: `simple.vert` and `simple.frag` to map noise to a 2D quad, and `surface.vert` to sample the generated noise texture and displace mesh vertices along the Z-axis to render a dynamic 3D terrain.</li>
+            <li><strong>Interactive UI Controls:</strong> Configured ImGui sliders for dynamic control of tiling scales, Z-input animation, stacks/slices, and the selection of 5 noise patterns: Plain Gradient Noise, Fractal Sum, Turbulence, Marble (period-aligned to the texture size for tiling), and Wood.</li>
         </ul>
 
         <h2>Reflection</h2>
-        <p>Reflect on the project, discussing any challenges faced, solutions implemented, and what you learned from the
-            experience.</p>
+        <p>One key technical challenge was handling the GLSL version declaration conflict. The custom engine loader automatically injects version headers if `#version` is not on the very first line of a shader file. Initially, placing copyright comments at the top caused compiler warnings and freezes. Solving this required strictly placing `#version 330 core` on line 1, immediately followed by the headers. Additionally, generating seamless Marble patterns required dynamically calculating wave periods based on the texture size to ensure the sine wave aligned perfectly with the repeat boundaries. This assignment greatly deepened my knowledge of GPU-based noise algorithms, spatial coordinate interpolation, and real-time mesh displacement in vertex shaders.</p>
     </div>
 
     <div class="portfolio-item-individual">
@@ -88,15 +90,15 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <a href="mailto:my.email@digipen.edu" class="footer__link">my.email@digipen.edu</a>
+        <a href="mailto:syun.dev@gmail.com" class="footer__link">syun.dev@gmail.com</a>
         <ul class="social-list">
             <li class="social-list__item">
-                <a class="social-list__link" href="https://linkedin.com/in/mylinkedinid">
+                <a class="social-list__link" href="https://linkedin.com/in/seojin-yun/">
                     <i class="fab fa-linkedin"></i>
                 </a>
             </li>
             <li class="social-list__item">
-                <a class="social-list__link" href="https://github.com/mygithubid">
+                <a class="social-list__link" href="https://github.com/digipen-seojin">
                     <i class="fab fa-github"></i>
                 </a>
             </li>
